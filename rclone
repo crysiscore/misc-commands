@@ -1,0 +1,88 @@
+##########################   CONFIGURACAO DA SINCRONIZACAO DE BACKUPS OpenMRS ############################################# 
+# 1 -  update certificados 
+ sudo /usr/sbin/update-ca-certificates --fresh
+# 2 - Baixar os ficheiros
+
+downlaod1: https://www.dropbox.com/s/60mq5kty6gk690k/rclone-v1.59.1-linux-amd64.deb?dl=0
+downlaod2: https://www.dropbox.com/s/vzkc6tdw0wa8m9v/rclone.conf?dl=0
+download3: https://www.dropbox.com/s/rcpukw3svvtx1hi/openmrs_backup_sync?dl=0
+
+# 2.1 CRIAR O DIRECTORIO
+mkdir rcloneconfig
+cd rcloneconfig
+
+# copiar os ficheiros para o directorio /home/ccsadmin/rcloneconfig
+
+
+# 2 - Instalar
+sudo dpkg  -i  rclone-v1.59.1-linux-amd64.deb 
+
+# 3 - Mostra o  local do ficheiro de config
+rclone config file
+
+# 4- COPIAR O FICHEIRO DE CONFIGURACAO ONEDRIVE
+
+cp rclone.conf /home/ccsadmin/.config/rclone/
+
+# 5- Print (decrypted) config file, or the config for a single remote.
+rclone config show
+
+( O Output deve mostrar o seguinte)
+ [onedrive]
+type = onedrive
+token = {"access_token":"eyJ0eX.....
+
+# 6 - Modificar o ficheiro openmrs_backup_sync  alterar o remote:DESTINATION  e a hora de execucao com base nos dados da tabela (1) 
+ nano openmrs_backup_sync
+
+# 7 - conpiar o ficheiro para o /etc/crond.d/
+sudo cp openmrs_backup_sync /etc/cron.d/
+
+# Reload cron
+/etc/init.d/cron reload
+                                                                     _________________
+                                                                     | Hora de sync  |
+--------------------------------------------------------------------------------------------------------------------------
+ # Lista de remote:DESTINATION              | Hora do Backup cron |     1x      2x
+-------------------------------------------------------------------------------------------------------------------------
+  onedrive:/openmrs_backups/altomae                  17:30            18:00h   00:00
+  onedrive:/openmrs_backups/chamanculo                                18:20h   00:20
+  onedrive:/openmrs_backups/josemacamo_hg                             18:40h   00:40
+  onedrive:/openmrs_backups/1_junho                                   19:00h   01:00
+  onedrive:/openmrs_backups/porto                                     19:20h   01:20
+  onedrive:/openmrs_backups/xipamanine                                19:40h   01:40
+  onedrive:/openmrs_backups/josemacamo_cs                             20:00h   02:00
+  onedrive:/openmrs_backups/polana_canico                             20:20h   02:20
+  onedrive:/openmrs_backups/albasine                                  20:40h   02:40
+  onedrive:/openmrs_backups/maxaquene                                 
+  onedrive:/openmrs_backups/malhangalene                              21:00h   03:00
+  onedrive:/openmrs_backups/magoanine_a 
+  onedrive:/openmrs_backups/bagamoio                                  21:20h   03:20
+  onedrive:/openmrs_backups/hulene
+  onedrive:/openmrs_backups/zimpeto                                   21:40h   03:40
+  onedrive:/openmrs_backups/cimento 
+  onedrive:/openmrs_backups/magoanine_tenda                           22:00h   04:00
+  onedrive:/openmrs_backups/inhagoia
+  onedrive:/openmrs_backups/incassane
+  onedrive:/openmrs_backups/hpi
+  onedrive:/openmrs_backups/hcm_ped
+  onedrive:/openmrs_backups/mavalane_cs
+  onedrive:/openmrs_backups/mavalane_hg_p                             22:20h   04:20
+  onedrive:/openmrs_backups/mavalane_hg_a                             22:40h   04:40
+  onedrive:/openmrs_backups/catembe                                   23:00h   05:00
+  onedrive:/openmrs_backups/inhaca
+  onedrive:/openmrs_backups/1_maio                                    23:20h   05:20
+  onedrive:/openmrs_backups/romao
+  onedrive:/openmrs_backups/pescadores                                23:40h   05:40
+
+
+
+
+
+rclone listremotes
+# Show path of configuration file in use.
+clone config file	
+
+# Print (decrypted) config file, or the config for a single remote.
+rclone config show
+

@@ -1,0 +1,73 @@
+
+
+docker container rm  altomae chamanculo josemacamo_hg junho porto xipamanine maio josemacamo_cs polana_canico albasine maxaquene malhangalene magoanine_a mavalane_cs bagamoio hulene zimpeto cimento 
+docker container rm  altomae chamanculo josemacamo_hg junho porto xipamanine maio josemacamo_cs polana_canico albasine maxaquene malhangalene magoanine_a mavalane_cs bagamoio hulene zimpeto cimento \
+magoanine_tenda inhagoia incassane hpi hcm_ped mavalane_cs mavalane_hg_p mavalane_hg_a catembe inhaca 1_maio romao pescadores 
+
+docker stop  altomae chamanculo josemacamo_hg junho porto xipamanine maio josemacamo_cs polana_canico albasine maxaquene malhangalene magoanine_a mavalane_cs bagamoio hulene zimpeto cimento \
+magoanine_tenda inhagoia incassane hpi hcm_ped mavalane_cs mavalane_hg_p mavalane_hg_a catembe inhaca 1_maio romao pescadores 
+
+
+export USER_AT_HOST="ccsadmin@192.168.1.10"
+export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
+ssh-copy-id -p 22 -i  "$PUBKEYPATH" "$USER_AT_HOST"
+ssh-copy-id  -i  "$PUBKEYPATH" "$USER_AT_HOST"
+ssh-copy-id -i ~/.ssh/id_rsa admin1@160.242.33.26
+
+ time sed -i '/insert DELAYED  into/ s//insert  into/g' large file
+	sed -i -e 's/openmrs_inh_/openmrs_inh_/g' /root/.OpenMRS/openmrs-runtime.properties
+
+time sed -i '// s// CREATE DATABASE /g' large file
+time sed -i '/CREATE DATABASE/ s//-- CREATE DATABASE/g' Bac
+time ser 
+find ./ -type f -name '*.ssh' -exec sed -i -e 's/home/data_ssd_2/g' {} \;
+find ./ -type f -name '*.ssh' -exec sed -i -e 's/data_ssd_2/ccsadmin/openmrs/backups/data_ssd_2/openmrs_backups/g' {} \;
+
+
+find . -depth -name "*.txt" -exec sh -c 'f="{}"; mv -- "$f" "${f%.txt}.sql"' \;
+mysql -uroot -ppassword  -h127.0.0.1 -P5457 josemacamo_hg  < 2022-04-12\ 09-00-00_JoseMacamo_HG.sql 
+grep -nw  -i --colour 2022-04-12\ 10-30-00_JoseMacamo_cs.sql  -e "delayed"
+
+
+
+# Restart openmrs container to free up resources
+  30  4  *  *  MON,TUE,WED,THU,FRI   docker restart  openmrs_2x
+
+
+CCSMozart2022Q2
+
+
+# Mount exfat on linux
+sudo mount -o umask=0,uid=nobody,gid=nobody /dev/something /mnt/somewhere
+sudo mount -o umask=0,uid=1000,gid=1000 /dev/something /mnt/somewhere
+sudo mount -t exfat  -o umask=0,uid=1000,gid=1000 /dev/sdc1 /home/agnaldo/mount/
+
+git config --global user.name "Agnaldo Samuel"
+git config --global user.email agnaldosamuel3@gmail.com
+
+
+
+
+--- ----------------------   copy ssh key to server --------------------------------
+
+
+export USER_AT_HOST="admin1@160.242.33.26"
+export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
+ssh-copy-id -p 2214 -i  "$PUBKEYPATH" "$USER_AT_HOST"
+
+ssh-copy-id  -i  "$PUBKEYPATH" "$USER_AT_HOST"
+ssh-copy-id -i ~/.ssh/id_rsa admin1@160.242.33.26
+
+
+ ----------------------   postres  ----------------------------------------
+
+create database ccu_db;
+
+create user smi  with encrypted password 'ccs_ccu';
+GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO smi;
+grant create, connect, temporary on database   ccu_db to smi;
+grant all privileges on  database ccu_db to smi;
+grant all privileges on  SCHEMA public  to smi;
+
+select  * from information_schema.role_table_grants where grantee='smi';
+
