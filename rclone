@@ -3,7 +3,7 @@
  sudo /usr/sbin/update-ca-certificates --fresh
 # 2 - Baixar os ficheiros
 
-downlaod1: https://www.dropbox.com/s/60mq5kty6gk690k/rclone-v1.59.1-linux-amd64.deb?dl=0
+downlaod1: https://www.dropbox.com/s/60mq5kty6gklsda
 downlaod2: https://www.dropbox.com/s/vzkc6tdw0wa8m9v/rclone.conf?dl=0
 download3: https://www.dropbox.com/s/rcpukw3svvtx1hi/openmrs_backup_sync?dl=0
 
@@ -40,6 +40,7 @@ sudo cp openmrs_backup_sync /etc/cron.d/
 
 # Reload cron
 /etc/init.d/cron reload
+# rclone sync -P  --verbose --retries 5  /hdd/openmrs/backups/  onedrive:/openmrs_ba>
                                                                      _________________
                                                                      | Hora de sync  |
 --------------------------------------------------------------------------------------------------------------------------
@@ -81,8 +82,15 @@ sudo cp openmrs_backup_sync /etc/cron.d/
 
 rclone listremotes
 # Show path of configuration file in use.
-clone config file	
+rclone config file	
 
 # Print (decrypted) config file, or the config for a single remote.
 rclone config show
 
+
+
+
+00 22 * * * rclone sync -P  --verbose --retries 5  /data/openmrs/backups/  onedrive:/openmrs_backups/polana_canico
+
+00 03 * * * rclone sync -P  --verbose --retries 5  /data/openmrs/backups/  onedrive:/openmrs_backups/polana_canico
+rclone sync -P  --verbose --retries 5  /hdd/openmrs/backups/  onedrive:/openmrs_backups/chamanculo

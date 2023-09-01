@@ -1,0 +1,13 @@
+# The first element of the path is a directory where the debian-sa1
+# script is located
+
+#  Additional run sync at 18:00 and 00:01
+# -------------------------------------------------------------------------------------------------------------------
+#    Lista de remote:DESTINATION              | Hora do Backup cron |     1x      2x
+# -------------------------------------------------------------------------------------------------------------------------
+#     onedrive:/openmrs_backups/altomae                  17:30            18:00h   00:00
+
+01 18 * * * ccsadmin rclone sync -P  --verbose --retries 5  /data/openmrs/backups/  onedrive:/openmrs_backups/altomae
+
+59 23 * * * ccsadmin rclone sync -P  --verbose --retries 5  /data/openmrs/backups/  onedrive:/openmrs_backups/altomae
+

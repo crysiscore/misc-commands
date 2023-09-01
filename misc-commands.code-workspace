@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../docker-hub"
+		},
+		{
+			"path": "../shiny-server"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../ccs-openmrs-reports"
+		}
+	],
+	"settings": {}
+}

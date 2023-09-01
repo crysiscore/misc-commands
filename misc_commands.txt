@@ -1,55 +1,7 @@
 
-
-docker container rm  altomae chamanculo josemacamo_hg junho porto xipamanine maio josemacamo_cs polana_canico albasine maxaquene malhangalene magoanine_a mavalane_cs bagamoio hulene zimpeto cimento 
-docker container rm  altomae chamanculo josemacamo_hg junho porto xipamanine maio josemacamo_cs polana_canico albasine maxaquene malhangalene magoanine_a mavalane_cs bagamoio hulene zimpeto cimento \
-magoanine_tenda inhagoia incassane hpi hcm_ped mavalane_cs mavalane_hg_p mavalane_hg_a catembe inhaca 1_maio romao pescadores 
-
-docker stop  altomae chamanculo josemacamo_hg junho porto xipamanine maio josemacamo_cs polana_canico albasine maxaquene malhangalene magoanine_a mavalane_cs bagamoio hulene zimpeto cimento \
-magoanine_tenda inhagoia incassane hpi hcm_ped mavalane_cs mavalane_hg_p mavalane_hg_a catembe inhaca 1_maio romao pescadores 
-
-
-export USER_AT_HOST="ccsadmin@192.168.1.10"
-export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
-ssh-copy-id -p 22 -i  "$PUBKEYPATH" "$USER_AT_HOST"
-ssh-copy-id  -i  "$PUBKEYPATH" "$USER_AT_HOST"
-ssh-copy-id -i ~/.ssh/id_rsa admin1@160.242.33.26
-
- time sed -i '/insert DELAYED  into/ s//insert  into/g' large file
-	sed -i -e 's/openmrs_inh_/openmrs_inh_/g' /root/.OpenMRS/openmrs-runtime.properties
-
-time sed -i '// s// CREATE DATABASE /g' large file
-time sed -i '/CREATE DATABASE/ s//-- CREATE DATABASE/g' Bac
-time ser 
-find ./ -type f -name '*.ssh' -exec sed -i -e 's/home/data_ssd_2/g' {} \;
-find ./ -type f -name '*.ssh' -exec sed -i -e 's/data_ssd_2/ccsadmin/openmrs/backups/data_ssd_2/openmrs_backups/g' {} \;
-
-
-find . -depth -name "*.txt" -exec sh -c 'f="{}"; mv -- "$f" "${f%.txt}.sql"' \;
-mysql -uroot -ppassword  -h127.0.0.1 -P5457 josemacamo_hg  < 2022-04-12\ 09-00-00_JoseMacamo_HG.sql 
-grep -nw  -i --colour 2022-04-12\ 10-30-00_JoseMacamo_cs.sql  -e "delayed"
-
-
-
-# Restart openmrs container to free up resources
-  30  4  *  *  MON,TUE,WED,THU,FRI   docker restart  openmrs_2x
-
-
-CCSMozart2022Q2
-
-
-# Mount exfat on linux
-sudo mount -o umask=0,uid=nobody,gid=nobody /dev/something /mnt/somewhere
-sudo mount -o umask=0,uid=1000,gid=1000 /dev/something /mnt/somewhere
-sudo mount -t exfat  -o umask=0,uid=1000,gid=1000 /dev/sdc1 /home/agnaldo/mount/
-
-git config --global user.name "Agnaldo Samuel"
-git config --global user.email agnaldosamuel3@gmail.com
-
-
-
+# Public key authentication
 
 --- ----------------------   copy ssh key to server --------------------------------
-
 
 export USER_AT_HOST="admin1@160.242.33.26"
 export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
@@ -59,15 +11,153 @@ ssh-copy-id  -i  "$PUBKEYPATH" "$USER_AT_HOST"
 ssh-copy-id -i ~/.ssh/id_rsa admin1@160.242.33.26
 
 
- ----------------------   postres  ----------------------------------------
+export USER_AT_HOST="ccsadmin@192.168.1.10"
+export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
+ssh-copy-id -p 22 -i  "$PUBKEYPATH" "$USER_AT_HOST"
+ssh-copy-id  -i  "$PUBKEYPATH" "$USER_AT_HOST"
+ssh-copy-id -i ~/.ssh/id_rsa admin1@160.242.33.26
 
+# replace text in large files
+ time sed -i '/insert DELAYED  into/ s//insert  into/g' large file
+	sed -i -e 's/openmrs_inh_/openmrs_inh_/g' /root/.OpenMRS/openmrs-runtime.properties
+
+sed -i 's/\\N/NULL/g' ccu_db.sql 
+
+find ./ -type f -name '*.ssh' -exec sed -i -e 's/home/data_ssd_2/g' {} \;
+find ./ -type f -name '*.ssh' -exec sed -i -e 's/data_ssd_2/ccsadmin/openmrs/backups/data_ssd_2/openmrs_backups/g' {} \;
+
+# serach text in files
+grep -nw  -i --colour 2022-04-12\ 10-30-00_JoseMacamo_cs.sql  -e "delayed"
+
+
+# Restart openmrs container to free up resources
+  30  4  *  *  MON,TUE,WED,THU,FRI   docker restart  openmrs_2x
+
+
+# Linux change timezone
+sudo timedatectl set-timezone Africa/Maputo
+
+
+# Mount exfat on linux
+sudo mount -o umask=0,uid=nobody,gid=nobody /dev/something /mnt/somewhere
+sudo mount -o umask=0,uid=1000,gid=1000 /dev/something /mnt/somewhere
+sudo mount -t exfat  -o umask=0,uid=1000,gid=1000 /dev/sdc1 /home/agnaldo/mount/
+
+# Git Config USER
+git config --global user.name "Agnaldo Samuel"
+git config --global user.email agnaldosamuel3@gmail.com
+
+
+
+ ----------------------   postres SMI  ----------------------------------------
+drop database ccu_db;
 create database ccu_db;
 
+\c ccu_db;
 create user smi  with encrypted password 'ccs_ccu';
-GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO smi;
+create user smi with encrypted password '@Dh15ccs2020';
 grant create, connect, temporary on database   ccu_db to smi;
 grant all privileges on  database ccu_db to smi;
 grant all privileges on  SCHEMA public  to smi;
+GRANT ALL PRIVILEGES  ON ALL TABLES IN SCHEMA public TO smi;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public  TO smi;
 
 select  * from information_schema.role_table_grants where grantee='smi';
+
+----------------------   postres DATIM  ----------------------------------------
+
+create database dhis_pepfar_datim;
+
+\c dhis_pepfar_datim
+create user datim  with encrypted password 'ccs@datim_2022';
+GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO datim;
+grant create, connect, temporary on database   dhis_pepfar_datim to datim;
+grant all privileges on  database dhis_pepfar_datim to datim;
+grant all privileges on  SCHEMA public  to datim;
+GRANT ALL PRIVILEGES  ON ALL TABLES IN SCHEMA public TO datim;
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public  TO datim;
+select  * from information_schema.role_table_grants where grantee='datim';
+
+
+--- ----------------------   copy ssh key to centralization server --------------------------------
+
+
+export USER_AT_HOST="eip@160.242.33.26"
+export PUBKEYPATH="$HOME/.ssh/id_rsa.pub"
+ssh-copy-id -p 2203 -i  "$PUBKEYPATH" "$USER_AT_HOST"
+
+ssh-copy-id  -i  "$PUBKEYPATH" "$USER_AT_HOST"
+ssh-copy-id -i ~/.ssh/id_rsa admin1@160.242.33.26
+#eIPccs123#
+ssh -p '2203' 'eip@160.242.33.26'
+
+
+CCSMozart2022Q1!
+
+\c idart_central
+create user central  with encrypted password 'ccs@central_2023';
+GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO central;
+grant create, connect, temporary on database   idart_central to central;
+grant all privileges on  database idart_central to central;
+grant all privileges on  SCHEMA public  to central;
+GRANT ALL PRIVILEGES  ON ALL TABLES IN SCHEMA public TO central;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public  TO central;
+-- ALTER USER backup WITH SUPERUSER;
+
+
+-----                  Clear docker logs
+
+ sudo truncate -s 0 $(sudo docker inspect --format='{{.LogPath}}' albasine)
+
+ sudo truncate -s 0 $(sudo docker inspect --format='{{.LogPath}}' openmrs_2x)
+
+
+# Monitor API REQUESTS on DEVice
+sudo tcpflow -p -c -i wlp0s20f3 port 8085 | grep -oE '(GET|POST|HEAD) .* HTTP/1.[01]|Host: .*'
+
+docker pull postgres:12.15-bookworm
+
+ docker run -d 	--name sidmat_postgres 	-e POSTGRES_PASSWORD=3De38@_qs 	-e POSTGRES_USER=sidmat 	-e POSTGRES_DB=sidmat  -e POSTGRES_HOST_AUTH_METHOD=md5   -p 5404:5432  	postgres:13.12-bookworm
+
+ docker run -d \
+	--name idart-postgres \
+	-e POSTGRES_PASSWORD=3De38@_qs \
+  -p 5401:5432 \
+	-v  ~/backups_idart:/data \
+  -e POSTGRES_HOST_AUTH_METHOD=md5 \
+	postgres:13.9-bullseye
+
+
+
+create user idart with encrypted password '@Dh15ccs2q_'; 
+ALTER USER idart WITH SUPERUSER;
+
+
+GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO idart;
+grant create, connect, temporary on database   efila to idart;
+grant all privileges on  database efila to idart;
+grant all privileges on  SCHEMA public  to idart;
+GRANT ALL PRIVILEGES  ON ALL TABLES IN SCHEMA public TO idart;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public  TO idart;
+ALTER USER idart WITH SUPERUSER;
+ALTER USER username CREATEDB;
+
+
+
+create user cloudera  with encrypted password 'cloudera'; 
+\c cloudera
+GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO cloudera;
+grant create, connect, temporary on database   cloudera to cloudera;
+grant all privileges on  database cloudera to cloudera;
+grant all privileges on  SCHEMA public  to cloudera;
+GRANT ALL PRIVILEGES  ON ALL TABLES IN SCHEMA public TO cloudera;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public  TO cloudera;
+ALTER USER cloudera WITH SUPERUSER;
+
+
+
+psql -U idart -h127.0.0.1 -p 5401 -d efila < Idart_1Junho_14_04_2023.sql
+
+
 

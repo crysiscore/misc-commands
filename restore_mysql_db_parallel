@@ -1,0 +1,98 @@
+ create database "1_junho"; 
+
+  create database "1_maio"; 
+
+  create database albasine; 
+
+  create database altomae; 
+
+  create database bagamoio; 
+
+  create database catembe; 
+
+  create database chamanculo; 
+
+  create database cimento; 
+
+  create database hcm; 
+
+  create database hpi; 
+
+  create database hulene; 
+
+  create database incassane; 
+
+  create database inhaca; 
+
+  create database inhagoia; 
+
+  create database josemacamocs; 
+
+  create database josemacamohg; 
+
+  create database magoanine_tendas; 
+
+  create database malhangalene; 
+
+  create database mavalanecs; 
+
+  create database mavalane_hg; 
+
+  create database maxaquene; 
+
+  create database pescador; 
+
+  create database canico; 
+
+  create database porto; 
+
+  create database romao; 
+
+  create database xipamanine; 
+
+  create database zimpeto; 
+
+ create database magoaninea; 
+
+\c "magoanineA" ;
+
+GRANT SELECT, update, delete, insert  ON ALL TABLES IN SCHEMA public TO idart; 
+
+grant create, connect, temporary on database   "magoanineA" to idart; 
+
+grant all privileges on  database "magoanineA" to idart; 
+
+grant all privileges on  SCHEMA public  to idart; 
+
+GRANT ALL PRIVILEGES  ON ALL TABLES IN SCHEMA public TO idart; 
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public  TO idart; 
+
+  
+ create database "1_junho";
+ create database "1_maio"
+
+
+ find .  -not -path . -type d | parallel 'cd {} &&  unzip -p  $(ls -Art | tail -n 1)| mysql -uesaude -pesaude --host 127.0.0.1  {/.}  '
+
+find .  -not -path . ! -path './farmac*' ! -path './teste' -type d | parallel 'cd {} && 7z e $(ls -Artls *.7z | tail -n 1) | PGPASSWORD=@Dh15ccs2q_  psql -U idart -p5401 -h127.0.0.1  -d {/.} '
+
+create user idart with encrypted password '@Dh15ccs2q_'; 
+ALTER USER idart WITH SUPERUSER;
+
+
+7z e $(ls -tp *.7z | grep -v /$ | head -1)
+
+find .  -not -path . ! -path './farmac*' ! -path './teste' -type d | parallel " PGPASSWORD=@Dh15ccs2q_  psql -U idart -p5401 -h127.0.0.1  -d efila -c 'drop database  {/.} ' "
+
+
+
+find .  -not -path . ! -path './farmac*' ! -path './teste' ! -path './1_maio' ! -path './1_junho' ! -path './magoanineA' -type d | parallel 'cd {} && 7z e -so $(ls -tp *.7z | grep -v /$ | head -1) | PGPASSWORD=@Dh15ccs2q_  psql -U idart -p5401 -h127.0.0.1  -d {/.} '
+find .  -not -path . ! -path './farmac*' ! -path './teste' -type d  -name "1_maio" | parallel  'cd {} && 7z e -so $(ls -tp *.7z | grep -v /$ | head -1) | PGPASSWORD=@Dh15ccs2q_  psql -U idart -p5401 -h 127.0.0.1  -d 1_maio '
+find .  -not -path . ! -path './farmac*' ! -path './teste' -type d  -name "1_junho" | parallel 'cd {} && 7z e -so $(ls -tp *.7z | grep -v /$ | head -1) | PGPASSWORD=@Dh15ccs2q_  psql -U idart -p5401 -h127.0.0.1  -d 1_junho '
+find .  -not -path . ! -path './farmac*' ! -path './teste' -type d  -name "magoanineA" | parallel 'cd {} && 7z e -so $(ls -tp *.7z | grep -v /$ | head -1) | PGPASSWORD=@Dh15ccs2q_  psql -U idart -p5401 -h127.0.0.1  -d magoaninea '
+
+
+find .  -not -path . ! -path './farmac*' ! -path './teste' -type d  -name "magoanineA" | parallel ' sudo truncate -s 0 $(sudo docker inspect --format='{{.LogPath}}' {/.})
+
+
